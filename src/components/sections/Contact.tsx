@@ -1,34 +1,75 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { PremiumButton } from "@/components/ui/premium-button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { siteConfig } from "@/config/site.config";
 import { toast } from "sonner";
+import { MessageCircle } from "lucide-react";
 
 export const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     company: "",
-    message: ""
+    message: "",
   });
+
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    toast.success("Message sent successfully! We'll get back to you soon.");
-    setFormData({ name: "", email: "", company: "", message: "" });
+
+    // Validate required fields
+    if (!formData.name || !formData.email || !formData.message) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    setIsFormSubmitted(true);
+    toast.success(
+      "Form filled! Click the WhatsApp button to send your message."
+    );
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
+  const sendToWhatsApp = () => {
+    const message = `Hi Light X Digital Team!
+
+*New Contact Form Submission*
+
+📋 *Details:*
+• Name: ${formData.name}
+• Email: ${formData.email}
+• Company: ${formData.company || "Not specified"}
+
+💬 *Message:*
+${formData.message}
+
+Looking forward to hearing from you!`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${siteConfig.links.whatsapp}?text=${encodedMessage}`;
+
+    window.open(whatsappURL, "_blank");
+
+    // Reset form after sending
+    setTimeout(() => {
+      setFormData({ name: "", email: "", company: "", message: "" });
+      setIsFormSubmitted(false);
+      toast.success("Redirected to WhatsApp! Your message is ready to send.");
+    }, 1000);
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -61,7 +102,7 @@ export const Contact = () => {
             <span className="block text-primary">Something Amazing</span>
           </h2>
           <p className="body-text text-xl text-muted-foreground max-w-3xl mx-auto">
-            Ready to transform your digital presence? Let's discuss your vision 
+            Ready to transform your digital presence? Let's discuss your vision
             and craft a strategy that drives exceptional results.
           </p>
         </motion.div>
@@ -97,7 +138,9 @@ export const Contact = () => {
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  <label className="block text-sm font-medium mb-2">Email</label>
+                  <label className="block text-sm font-medium mb-2">
+                    Email
+                  </label>
                   <Input
                     type="email"
                     name="email"
@@ -115,7 +158,9 @@ export const Contact = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                <label className="block text-sm font-medium mb-2">Company</label>
+                <label className="block text-sm font-medium mb-2">
+                  Company
+                </label>
                 <Input
                   type="text"
                   name="company"
@@ -131,7 +176,9 @@ export const Contact = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.6 }}
               >
-                <label className="block text-sm font-medium mb-2">Message</label>
+                <label className="block text-sm font-medium mb-2">
+                  Message
+                </label>
                 <Textarea
                   name="message"
                   value={formData.message}
@@ -147,10 +194,46 @@ export const Contact = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.7 }}
+                className="space-y-4"
               >
-                <Button type="submit" className="btn-primary w-full text-lg py-6">
-                  Send Message
-                </Button>
+                {!isFormSubmitted ? (
+                  <PremiumButton
+                    type="submit"
+                    variant="send-message"
+                    size="lg"
+                    className="w-full"
+                  >
+                    Continue
+                  </PremiumButton>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-2"
+                  >
+                    <PremiumButton
+                      type="button"
+                      onClick={sendToWhatsApp}
+                      variant="whatsapp"
+                      size="lg"
+                      className="w-full"
+                    >
+                      <MessageCircle className="w-5 h-5" />
+                      Send on WhatsApp
+                    </PremiumButton>
+
+                    <PremiumButton
+                      type="button"
+                      onClick={() => setIsFormSubmitted(false)}
+                      variant="edit"
+                      size="md"
+                      className="w-full mt-2"
+                    >
+                      Edit Message
+                    </PremiumButton>
+                  </motion.div>
+                )}
               </motion.div>
             </form>
           </motion.div>
@@ -169,10 +252,13 @@ export const Contact = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                <h3 className="font-serif text-2xl font-bold mb-4">Get in Touch</h3>
+                <h3 className="font-serif text-2xl font-bold mb-4">
+                  Get in Touch
+                </h3>
                 <p className="body-text text-muted-foreground leading-relaxed">
-                  Ready to elevate your digital presence? Let's schedule a consultation 
-                  to discuss your goals and explore how we can bring your vision to life.
+                  Ready to elevate your digital presence? Let's schedule a
+                  consultation to discuss your goals and explore how we can
+                  bring your vision to life.
                 </p>
               </motion.div>
 
@@ -199,13 +285,31 @@ export const Contact = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.7 }}
             >
-              <h3 className="font-serif text-2xl font-bold mb-6">Our Process</h3>
+              <h3 className="font-serif text-2xl font-bold mb-6">
+                Our Process
+              </h3>
               <div className="space-y-6">
                 {[
-                  { step: "01", title: "Discovery", desc: "Understanding your vision and goals" },
-                  { step: "02", title: "Strategy", desc: "Crafting a roadmap for success" },
-                  { step: "03", title: "Execution", desc: "Bringing your project to life" },
-                  { step: "04", title: "Growth", desc: "Optimizing for continued success" }
+                  {
+                    step: "01",
+                    title: "Discovery",
+                    desc: "Understanding your vision and goals",
+                  },
+                  {
+                    step: "02",
+                    title: "Strategy",
+                    desc: "Crafting a roadmap for success",
+                  },
+                  {
+                    step: "03",
+                    title: "Execution",
+                    desc: "Bringing your project to life",
+                  },
+                  {
+                    step: "04",
+                    title: "Growth",
+                    desc: "Optimizing for continued success",
+                  },
                 ].map((item, index) => (
                   <motion.div
                     key={item.step}

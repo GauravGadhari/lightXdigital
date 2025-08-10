@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { PremiumButton } from "@/components/ui/premium-button";
 import { siteConfig } from "@/config/site.config";
 import heroAbstract from "@/assets/hero-abstract.png";
 
@@ -27,51 +27,51 @@ export const Hero = () => {
         transition={{ duration: 1.5, ease: "easeOut" }}
         className="absolute inset-0 flex items-center justify-center"
       >
-        <img 
-          src={heroAbstract} 
-          alt="" 
+        <img
+          src={heroAbstract}
+          alt=""
           className="w-full h-full object-contain opacity-20"
         />
       </motion.div>
 
       {/* Floating Elements */}
       <motion.div
-        animate={{ 
+        animate={{
           y: [-20, 20, -20],
-          rotate: [0, 5, 0, -5, 0] 
+          rotate: [0, 5, 0, -5, 0],
         }}
-        transition={{ 
-          duration: 8, 
-          repeat: Infinity, 
-          ease: "easeInOut" 
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
         }}
         className="absolute top-1/4 left-1/4 w-2 h-2 bg-primary rounded-full"
       />
-      
+
       <motion.div
-        animate={{ 
+        animate={{
           y: [20, -20, 20],
-          x: [-10, 10, -10] 
+          x: [-10, 10, -10],
         }}
-        transition={{ 
-          duration: 6, 
-          repeat: Infinity, 
+        transition={{
+          duration: 6,
+          repeat: Infinity,
           ease: "easeInOut",
-          delay: 2 
+          delay: 2,
         }}
         className="absolute top-1/3 right-1/3 w-1 h-1 bg-primary rounded-full"
       />
 
       <motion.div
-        animate={{ 
+        animate={{
           scale: [1, 1.2, 1],
-          opacity: [0.5, 1, 0.5] 
+          opacity: [0.5, 1, 0.5],
         }}
-        transition={{ 
-          duration: 4, 
-          repeat: Infinity, 
+        transition={{
+          duration: 4,
+          repeat: Infinity,
           ease: "easeInOut",
-          delay: 1 
+          delay: 1,
         }}
         className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 bg-primary rounded-full"
       />
@@ -124,19 +124,21 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-col sm:flex-row gap-6 justify-center items-center"
           >
-            <Button 
+            <PremiumButton
               onClick={scrollToContact}
-              className="btn-primary text-lg px-12 py-6"
+              variant="start-project"
+              size="xl"
             >
               Start Your Project
-            </Button>
-            
-            <Button 
+            </PremiumButton>
+
+            <PremiumButton
               onClick={scrollToServices}
-              className="btn-secondary text-lg px-12 py-6"
+              variant="explore-services"
+              size="xl"
             >
               Explore Services
-            </Button>
+            </PremiumButton>
           </motion.div>
 
           {/* Scroll Indicator */}

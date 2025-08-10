@@ -19,7 +19,7 @@ User-agent: facebookexternalhit
 Allow: /
 
 # Sitemap location
-Sitemap: https://lightxdigital.com/sitemap.xml
+Sitemap: https://lightxdigital.vercel.app/sitemap.xml
 
 # Host preference (optional)
-Host: lightxdigital.com
+Host: lightxdigital.vercel.app

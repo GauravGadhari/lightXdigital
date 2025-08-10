@@ -2,29 +2,38 @@ export const siteConfig = {
   name: "Light X Digital",
   tagline: "Where innovation meets execution",
   description:
-    "Light X Digital - Premium digital agency led by Gaurav Gadhari from Nashik, crafting high-performance websites, mobile apps, and AI tools that accelerate business growth and brand value. Your trusted partner for digital transformation.",
-  url: "https://lightxdigital.com", // Update this if you haven't gone live yet
-  ogImage: "https://lightxdigital.com/og.jpg", // Replace if needed
+    "Light X Digital - Premier digital marketing agency led by Gaurav Gadhari from Nashik. Expert web development, mobile apps, AI solutions, SEO, and digital marketing services that drive business growth and exceptional ROI.",
+  url: "https://lightxdigital.vercel.app",
+  ogImage: "https://lightxdigital.vercel.app/og.jpg",
   keywords: [
     "Light X Digital",
     "Light",
     "Gaurav Gadhari",
-    "digital agency",
+    "digital marketing agency",
     "digital marketing",
-    "web development",
-    "app development",
-    "AI solutions",
-    "Nashik",
-    "website design",
-    "mobile app development",
-    "digital transformation",
+    "digital agency",
     "SEO services",
-    "premium digital agency"
+    "web development",
+    "mobile app development",
+    "AI solutions",
+    "social media marketing",
+    "content marketing",
+    "PPC advertising",
+    "brand strategy",
+    "Nashik digital marketing",
+    "Maharashtra digital agency",
+    "website design",
+    "digital transformation",
+    "online marketing",
+    "internet marketing",
+    "performance marketing",
+    "lead generation"
   ],
   links: {
     instagram: "https://www.instagram.com/light.x.digital/",
     email: "lightxdigital@gmail.com",
-    phone: "+91 77210 42911"
+    phone: "+91 77210 42911",
+    whatsapp: "+917721042911"
   },
   navigation: [
     { name: "Services", href: "#services" },

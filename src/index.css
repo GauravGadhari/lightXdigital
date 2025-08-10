@@ -40,8 +40,8 @@ Pure contrast, no greys, no gradients. Premium typography and smooth animations.
     --radius: 0.125rem;
 
     /* Typography System */
-    --font-serif: 'Playfair Display', serif;
-    --font-sans: 'Inter', sans-serif;
+    --font-serif: "Playfair Display", serif;
+    --font-sans: "Inter", sans-serif;
 
     /* Animation System */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -140,7 +140,7 @@ Pure contrast, no greys, no gradients. Premium typography and smooth animations.
 
   /* Line Art Decorations */
   .line-art::before {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 1px;
