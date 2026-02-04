@@ -7,19 +7,23 @@ import { AnimatePresence } from "framer-motion";
 import Index from "./pages/Index";
 import Work from "./pages/Work";
 import ProjectDetail from "./pages/ProjectDetail";
+import Products from "./pages/Products";
+import JewelBillPro from "./pages/products/JewelBillPro";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const AnimatedRoutes = () => {
   const location = useLocation();
-  
+
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Index />} />
         <Route path="/work" element={<Work />} />
         <Route path="/work/:id" element={<ProjectDetail />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/jewel-bill-pro" element={<JewelBillPro />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -1,23 +1,42 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { PremiumButton } from "@/components/ui/premium-button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { siteConfig } from "@/config/site.config";
 import { toast } from "sonner";
 import { MessageCircle } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { products } from "@/data/products";
+import { useSearchParams } from "react-router-dom";
 
 export const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [searchParams] = useSearchParams();
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     company: "",
+    product: "",
     message: "",
   });
+
+  // Pre-select product from URL params
+  useEffect(() => {
+    const productParam = searchParams.get("product");
+    if (productParam) {
+      setFormData((prev) => ({ ...prev, product: productParam }));
+    }
+  }, [searchParams]);
 
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
@@ -36,7 +55,15 @@ export const Contact = () => {
     );
   };
 
+  const getProductName = (productId: string) => {
+    if (!productId) return "Not specified";
+    const product = products.find(p => p.id === productId);
+    return product ? product.name : productId;
+  };
+
   const sendToWhatsApp = () => {
+    const productInfo = formData.product ? `\n🛒 *Interested In:* ${getProductName(formData.product)}` : "";
+
     const message = `Hi Light X Digital Team!
 
 *New Contact Form Submission*
@@ -44,7 +71,7 @@ export const Contact = () => {
 📋 *Details:*
 • Name: ${formData.name}
 • Email: ${formData.email}
-• Company: ${formData.company || "Not specified"}
+• Company: ${formData.company || "Not specified"}${productInfo}
 
 💬 *Message:*
 ${formData.message}
@@ -58,7 +85,7 @@ Looking forward to hearing from you!`;
 
     // Reset form after sending
     setTimeout(() => {
-      setFormData({ name: "", email: "", company: "", message: "" });
+      setFormData({ name: "", email: "", company: "", product: "", message: "" });
       setIsFormSubmitted(false);
       toast.success("Redirected to WhatsApp! Your message is ready to send.");
     }, 1000);
@@ -170,6 +197,36 @@ Looking forward to hearing from you!`;
                   placeholder="Your company"
                 />
               </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.55 }}
+              >
+                <label className="block text-sm font-medium mb-2">
+                  Interested In <span className="text-muted-foreground">(Optional)</span>
+                </label>
+                <Select
+                  value={formData.product}
+                  onValueChange={(value) => setFormData((prev) => ({ ...prev, product: value }))}
+                >
+                  <SelectTrigger className="bg-muted border-border focus:border-primary h-14 text-lg">
+                    <SelectValue placeholder="Select a product or service" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="general">General Inquiry</SelectItem>
+                    <SelectItem value="website">Website Development</SelectItem>
+                    <SelectItem value="app">App Development</SelectItem>
+                    <SelectItem value="ai">AI Solutions</SelectItem>
+                    {products.map((product) => (
+                      <SelectItem key={product.id} value={product.id}>
+                        {product.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </motion.div>
+
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
