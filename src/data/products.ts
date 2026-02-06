@@ -78,24 +78,25 @@ export const jewelBillProDetails: ProductDetails = {
   image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop&q=80",
   featured: true,
   route: "/products/jewel-bill-pro",
-  
+
   pricing: {
     firstYear: {
-      price: 0,
-      label: "First Year FREE",
+      price: 20000,
+      label: "One-Time Setup",
       includes: [
         "Complete Billing System",
         "Your Own Website Address (.in domain)",
-        "Website Running 24/7",
+        "1 Year Free Hosting",
         "All Features Unlocked",
+        "Full Shop Branding Setup",
         "WhatsApp Support"
       ]
     },
     maintenance: {
-      price: "Contact for Quote",
-      label: "After First Year",
+      price: "₹3,000/year",
+      label: "Yearly Maintenance (After 1st Year)",
       includes: [
-        "Website Address Renewal",
+        "Domain Renewal",
         "Continued Hosting",
         "Priority Support",
         "Free System Updates",
@@ -107,8 +108,8 @@ export const jewelBillProDetails: ProductDetails = {
   valueProps: [
     {
       icon: "Globe",
-      title: "Free Website Address",
-      subtitle: "Your own .in domain for 1st year — customers find you online easily"
+      title: "Your Own Website",
+      subtitle: "Your own .in domain included — customers find you online easily"
     },
     {
       icon: "Server",
@@ -187,8 +188,8 @@ export const jewelBillProDetails: ProductDetails = {
 
   whatsIncluded: [
     "Complete Jewellery Billing System",
-    "Your Own Website Address (.in domain) — FREE for 1st year",
-    "24/7 Website Hosting — FREE for 1st year",
+    "Your Own Website Address (.in domain)",
+    "1 Year Free Hosting Included",
     "Unlimited Invoices",
     "Unlimited Customers",
     "Unlimited Items in Catalog",
@@ -198,7 +199,7 @@ export const jewelBillProDetails: ProductDetails = {
     "GST Calculation",
     "Invoice History & Search",
     "WhatsApp Support",
-    "Free Updates During 1st Year"
+    "Free Updates for 1st Year"
   ],
 
   screenshots: [
@@ -214,7 +215,7 @@ export const jewelBillProDetails: ProductDetails = {
     },
     {
       question: "What happens after the first year?",
-      answer: "Your website address and hosting need renewal after 1 year. We offer a simple yearly maintenance plan that includes renewal, support, and free updates. We'll contact you before renewal."
+      answer: "After your first year, a simple yearly maintenance plan of ₹3,000 kicks in. This covers domain renewal, hosting, priority support, and all new features we add. We'll remind you before renewal."
     },
     {
       question: "Is my data safe?",

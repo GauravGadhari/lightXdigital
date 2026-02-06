@@ -126,8 +126,8 @@ const JewelBillPro = () => {
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                                 <div>
                                     <div className="flex flex-wrap gap-2 mb-4">
-                                        <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
-                                            First Year FREE
+                                        <Badge className="bg-primary/20 text-primary border-primary/30">
+                                            Complete Solution @ ₹20,000
                                         </Badge>
                                         <Badge variant="outline">
                                             {product.category}
@@ -146,7 +146,7 @@ const JewelBillPro = () => {
                                         <Link to="/?product=jewel-bill-pro#contact">
                                             <PremiumButton variant="start-project" size="lg">
                                                 <MessageCircle className="w-5 h-5 mr-2" />
-                                                Get Started Free
+                                                Get Started Today
                                             </PremiumButton>
                                         </Link>
                                         <a href="https://github.com/GauravGadhari/Professional-Jewellery-Billing-System-by-Light-x-Digital" target="_blank" rel="noopener noreferrer">
@@ -241,36 +241,36 @@ const JewelBillPro = () => {
                                     Simple, Transparent Pricing
                                 </h2>
                                 <p className="body-text text-lg text-muted-foreground max-w-2xl mx-auto">
-                                    Start free, grow your business, pay only when you're successful.
+                                    One-time setup, then affordable yearly maintenance. No hidden charges.
                                 </p>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                                {/* First Year */}
+                                {/* One-Time Setup */}
                                 <motion.div
                                     initial={{ opacity: 0, x: -30 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 0.6, delay: 0.5 }}
-                                    className="relative p-8 border-2 border-green-500/50 rounded-lg bg-gradient-to-br from-green-500/10 to-transparent"
+                                    className="relative p-8 border-2 border-primary/50 rounded-lg bg-gradient-to-br from-primary/10 to-transparent"
                                 >
                                     <div className="absolute -top-4 left-6">
-                                        <Badge className="bg-green-500 text-white font-semibold px-4 py-1">
-                                            RECOMMENDED
+                                        <Badge className="bg-primary text-white font-semibold px-4 py-1">
+                                            COMPLETE PACKAGE
                                         </Badge>
                                     </div>
 
                                     <div className="mb-6">
                                         <p className="text-sm text-muted-foreground mb-2">{product.pricing.firstYear.label}</p>
                                         <div className="flex items-baseline gap-2">
-                                            <span className="font-serif text-5xl font-bold text-green-400">₹0</span>
-                                            <span className="text-muted-foreground">for 1st year</span>
+                                            <span className="font-serif text-5xl font-bold text-primary">₹20,000</span>
+                                            <span className="text-muted-foreground">one-time</span>
                                         </div>
                                     </div>
 
                                     <ul className="space-y-3 mb-8">
                                         {product.pricing.firstYear.includes.map((item) => (
                                             <li key={item} className="flex items-start gap-3">
-                                                <Check className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                                                <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                                                 <span className="text-white">{item}</span>
                                             </li>
                                         ))}
@@ -278,7 +278,7 @@ const JewelBillPro = () => {
 
                                     <Link to="/?product=jewel-bill-pro#contact" className="block">
                                         <PremiumButton variant="start-project" size="lg" className="w-full justify-center">
-                                            Start Free Today
+                                            Get Started Today
                                         </PremiumButton>
                                     </Link>
                                 </motion.div>
@@ -293,10 +293,11 @@ const JewelBillPro = () => {
                                     <div className="mb-6">
                                         <p className="text-sm text-muted-foreground mb-2">{product.pricing.maintenance.label}</p>
                                         <div className="flex items-baseline gap-2">
-                                            <span className="font-serif text-3xl font-bold text-white">Yearly Plan</span>
+                                            <span className="font-serif text-3xl font-bold text-white">₹3,000</span>
+                                            <span className="text-muted-foreground">/year</span>
                                         </div>
                                         <p className="text-sm text-muted-foreground mt-2">
-                                            Affordable annual maintenance
+                                            Starts after first year
                                         </p>
                                     </div>
 
@@ -311,7 +312,7 @@ const JewelBillPro = () => {
 
                                     <Link to="/?product=jewel-bill-pro#contact" className="block">
                                         <PremiumButton variant="explore-services" size="lg" className="w-full justify-center">
-                                            Contact for Details
+                                            Contact Us
                                         </PremiumButton>
                                     </Link>
                                 </motion.div>
@@ -319,7 +320,116 @@ const JewelBillPro = () => {
                         </motion.div>
                     </section>
 
-                    {/* Section 4: Features Grid */}
+                    {/* Section 4: Competitor Comparison */}
+                    <section className="mb-20 pb-20 border-b border-border">
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.45 }}
+                        >
+                            <div className="text-center mb-12">
+                                <h2 className="hero-text text-3xl md:text-5xl font-bold mb-4">
+                                    Compare & Save Big
+                                </h2>
+                                <p className="body-text text-lg text-muted-foreground max-w-2xl mx-auto">
+                                    See how Jewel Bill Pro stacks up against other solutions
+                                </p>
+                            </div>
+
+                            <div className="overflow-x-auto">
+                                <table className="w-full min-w-[700px]">
+                                    <thead>
+                                        <tr className="border-b border-white/10">
+                                            <th className="text-left py-4 px-4 text-muted-foreground font-medium">Solution</th>
+                                            <th className="text-center py-4 px-4 text-muted-foreground font-medium">Initial Cost</th>
+                                            <th className="text-center py-4 px-4 text-muted-foreground font-medium">Yearly Cost</th>
+                                            <th className="text-center py-4 px-4 text-muted-foreground font-medium">3-Year Total</th>
+                                            <th className="text-center py-4 px-4 text-muted-foreground font-medium">Online Access</th>
+                                            <th className="text-center py-4 px-4 text-muted-foreground font-medium">Your Branding</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {/* Jewel Bill Pro - Highlighted */}
+                                        <tr className="bg-primary/10 border-2 border-primary/50 rounded-lg">
+                                            <td className="py-5 px-4">
+                                                <div className="flex items-center gap-3">
+                                                    <Badge className="bg-primary text-white text-xs">OURS</Badge>
+                                                    <span className="font-bold text-white">Jewel Bill Pro</span>
+                                                </div>
+                                            </td>
+                                            <td className="text-center py-5 px-4 font-bold text-primary">₹20,000</td>
+                                            <td className="text-center py-5 px-4 text-white">₹3,000</td>
+                                            <td className="text-center py-5 px-4 font-bold text-primary">₹26,000</td>
+                                            <td className="text-center py-5 px-4"><Check className="w-5 h-5 text-green-400 mx-auto" /></td>
+                                            <td className="text-center py-5 px-4"><Check className="w-5 h-5 text-green-400 mx-auto" /></td>
+                                        </tr>
+
+                                        {/* Tally */}
+                                        <tr className="border-b border-white/10">
+                                            <td className="py-5 px-4 text-white">Tally Prime</td>
+                                            <td className="text-center py-5 px-4 text-muted-foreground">₹18,000 - ₹54,000</td>
+                                            <td className="text-center py-5 px-4 text-muted-foreground">₹9,000+</td>
+                                            <td className="text-center py-5 px-4 text-red-400">₹36,000+</td>
+                                            <td className="text-center py-5 px-4 text-muted-foreground">Extra ₹</td>
+                                            <td className="text-center py-5 px-4"><span className="text-red-400">✗</span></td>
+                                        </tr>
+
+                                        {/* Busy */}
+                                        <tr className="border-b border-white/10">
+                                            <td className="py-5 px-4 text-white">Busy Accounting</td>
+                                            <td className="text-center py-5 px-4 text-muted-foreground">₹12,000 - ₹30,000</td>
+                                            <td className="text-center py-5 px-4 text-muted-foreground">₹5,000+</td>
+                                            <td className="text-center py-5 px-4 text-red-400">₹22,000+</td>
+                                            <td className="text-center py-5 px-4"><span className="text-red-400">✗</span></td>
+                                            <td className="text-center py-5 px-4"><span className="text-red-400">✗</span></td>
+                                        </tr>
+
+                                        {/* Marg */}
+                                        <tr className="border-b border-white/10">
+                                            <td className="py-5 px-4 text-white">Marg ERP</td>
+                                            <td className="text-center py-5 px-4 text-muted-foreground">₹25,000 - ₹50,000</td>
+                                            <td className="text-center py-5 px-4 text-muted-foreground">₹8,000+</td>
+                                            <td className="text-center py-5 px-4 text-red-400">₹41,000+</td>
+                                            <td className="text-center py-5 px-4 text-muted-foreground">Extra ₹</td>
+                                            <td className="text-center py-5 px-4"><span className="text-red-400">✗</span></td>
+                                        </tr>
+
+                                        {/* Custom Software */}
+                                        <tr className="border-b border-white/10">
+                                            <td className="py-5 px-4 text-white">Custom Software</td>
+                                            <td className="text-center py-5 px-4 text-muted-foreground">₹50,000 - ₹2,00,000+</td>
+                                            <td className="text-center py-5 px-4 text-muted-foreground">₹15,000+</td>
+                                            <td className="text-center py-5 px-4 text-red-400">₹80,000+</td>
+                                            <td className="text-center py-5 px-4 text-muted-foreground">Depends</td>
+                                            <td className="text-center py-5 px-4"><Check className="w-5 h-5 text-green-400 mx-auto" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div className="mt-8 text-center">
+                                <p className="text-muted-foreground text-sm mb-4">
+                                    * Prices are approximate and may vary. Jewel Bill Pro includes your own website address & hosting.
+                                </p>
+                                <div className="flex flex-wrap justify-center gap-6 text-sm">
+                                    <div className="flex items-center gap-2">
+                                        <Check className="w-4 h-4 text-green-400" />
+                                        <span className="text-white">Save up to ₹54,000+ over 3 years</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Check className="w-4 h-4 text-green-400" />
+                                        <span className="text-white">Access from anywhere, anytime</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Check className="w-4 h-4 text-green-400" />
+                                        <span className="text-white">Your shop branding included</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </section>
+
+                    {/* Section 5: Features Grid */}
                     <section className="mb-20 pb-20 border-b border-border">
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
@@ -539,7 +649,7 @@ const JewelBillPro = () => {
                                     <span className="block text-primary">Digital Journey Today</span>
                                 </h2>
                                 <p className="body-text text-xl mb-4 text-muted-foreground">
-                                    Free domain. Free hosting. Free for the first year.
+                                    Complete billing system. Your own website. Only ₹20,000.
                                 </p>
                                 <p className="text-lg mb-8 text-white">
                                     No technical knowledge required. We set everything up for you.
@@ -549,7 +659,7 @@ const JewelBillPro = () => {
                                     <Link to="/?product=jewel-bill-pro#contact">
                                         <PremiumButton variant="start-project" size="xl">
                                             <MessageCircle className="w-5 h-5 mr-2" />
-                                            Get Started Free
+                                            Get Started Today
                                         </PremiumButton>
                                     </Link>
                                     <a href="tel:+917721042911">
