@@ -5,6 +5,8 @@ import { useLenis } from "@/hooks/useLenis";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import {
   Sparkles,
   Check,
@@ -94,105 +96,55 @@ const Pricing = () => {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 1.02 }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
-      className="min-h-screen bg-background text-foreground"
+      className="min-h-screen bg-background text-foreground flex flex-col"
     >
-      <div className="pt-20">
-        {/* Navigation */}
-        <motion.nav
-          initial={{ y: -100 }}
-          animate={{ y: 0 }}
-          className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border"
-        >
-          <div className="container-custom">
-            <div className="flex items-center justify-between h-20">
-              <Link
-                to="/"
-                className="font-serif text-2xl font-bold tracking-tight hover:text-primary transition-colors"
-              >
-                Light X Digital
-              </Link>
-              <div className="flex items-center gap-6">
-                <Link
-                  to="/products"
-                  className="text-sm font-medium tracking-wide hover:text-primary transition-colors"
-                >
-                  Products
-                </Link>
-                <Link
-                  to="/work"
-                  className="text-sm font-medium tracking-wide hover:text-primary transition-colors"
-                >
-                  Our Work
-                </Link>
-                {user ? (
-                  <Link
-                    to="/account"
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card hover:border-primary transition-colors text-sm"
-                  >
-                    <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">
-                      {user.email?.[0].toUpperCase()}
-                    </div>
-                    <span className="hidden sm:inline text-xs text-muted-foreground">{user.email?.split("@")[0]}</span>
-                  </Link>
-                ) : (
-                  <button
-                    onClick={() => signInWithGoogle()}
-                    className="text-sm font-medium tracking-wide text-primary hover:underline flex items-center gap-1.5"
-                  >
-                    <LogIn className="w-4 h-4" />
-                    Sign In
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        </motion.nav>
+      <Navbar />
 
-        <div className="container-custom px-6 md:px-8 lg:px-12 section-padding">
+      <main className="flex-1 pt-24 pb-16">
+        <div className="container-custom">
           {/* Header */}
-          <section className="text-center mb-16 max-w-3xl mx-auto">
-            <Badge variant="outline" className="px-3 py-1 text-sm border-primary/30 text-primary mb-4">
+          <section className="text-center mb-12 md:mb-16 max-w-3xl mx-auto px-2">
+            <Badge variant="outline" className="px-3 py-1 text-xs sm:text-sm border-primary/30 text-primary mb-3">
               LightX Apps Ecosystem
             </Badge>
-            <h1 className="hero-text text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-              Simple, Transparent{" "}
-              <span className="text-primary">Pricing</span>
+            <h1 className="hero-text text-3xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight leading-tight">
+              Simple, Transparent <span className="text-primary">Pricing</span>
             </h1>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
               Unlock Pro features across all your devices. Zero hidden charges, 100% money-back guarantee, and uninterrupted productivity.
             </p>
           </section>
 
-          {/* 21 Days of Habit Pricing Highlight */}
-          <section className="mb-20">
-            <div className="max-w-5xl mx-auto rounded-3xl border border-border bg-card/60 p-8 md:p-12 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl -z-10" />
+          {/* 21 Days of Habit Pricing Card */}
+          <section className="mb-16">
+            <div className="max-w-5xl mx-auto rounded-3xl border border-border bg-card/70 p-5 sm:p-8 md:p-10 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-60 sm:w-80 h-60 sm:h-80 bg-primary/10 rounded-full blur-3xl -z-10" />
 
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-10 pb-8 border-b border-border/80">
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 flex items-center justify-center text-white shadow-lg">
-                    <Flame className="w-8 h-8" />
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-border/80">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 flex items-center justify-center text-white shadow-lg shrink-0">
+                    <Flame className="w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
                   <div>
-                    <div className="flex items-center gap-2">
-                      <h2 className="text-2xl font-bold">21 Days of Habit</h2>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h2 className="text-xl sm:text-2xl font-bold">21 Days of Habit</h2>
                       {is21DaysPro && (
-                        <Badge className="bg-emerald-500 text-white text-xs">PRO ACTIVE</Badge>
+                        <Badge className="bg-emerald-500 text-white text-[11px]">PRO ACTIVE</Badge>
                       )}
                     </div>
-                    <p className="text-sm text-muted-foreground">Minimalist habit tracker with streak freezes and cloud sync</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Minimalist habit tracker with streak freezes & cloud sync</p>
                   </div>
                 </div>
                 <Link
                   to="/products/21-days-of-habit"
-                  className="text-sm text-primary hover:underline flex items-center gap-1 font-semibold"
+                  className="text-xs sm:text-sm text-primary hover:underline flex items-center gap-1 font-semibold"
                 >
-                  View Product Page <ArrowRight className="w-4 h-4" />
+                  View Product Page <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
 
               {/* 3 Tier Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
                 {[
                   {
                     id: "monthly",
@@ -221,22 +173,24 @@ const Pricing = () => {
                 ].map((plan) => (
                   <div
                     key={plan.id}
-                    className={`rounded-2xl p-6 border transition-all ${
+                    className={`rounded-2xl p-5 sm:p-6 border transition-all flex flex-col justify-between ${
                       plan.popular
                         ? "bg-card border-primary ring-1 ring-primary/40 shadow-lg shadow-primary/5"
                         : "bg-background/80 border-border"
                     }`}
                   >
-                    {plan.badge && (
-                      <div className="inline-block px-3 py-0.5 rounded-full bg-primary/20 text-primary text-[11px] font-bold mb-3">
-                        {plan.badge}
+                    <div>
+                      {plan.badge && (
+                        <div className="inline-block px-2.5 py-0.5 rounded-full bg-primary/20 text-primary text-[10px] font-bold mb-2.5">
+                          {plan.badge}
+                        </div>
+                      )}
+                      <h3 className="text-base font-bold mb-0.5">{plan.title}</h3>
+                      <p className="text-xs text-muted-foreground mb-4">{plan.desc}</p>
+                      <div className="mb-6">
+                        <span className="text-2xl sm:text-3xl font-extrabold">{plan.price}</span>
+                        <span className="text-xs text-muted-foreground ml-1">{plan.period}</span>
                       </div>
-                    )}
-                    <h3 className="text-base font-bold mb-1">{plan.title}</h3>
-                    <p className="text-xs text-muted-foreground mb-4">{plan.desc}</p>
-                    <div className="mb-6">
-                      <span className="text-3xl font-extrabold">{plan.price}</span>
-                      <span className="text-xs text-muted-foreground ml-1">{plan.period}</span>
                     </div>
 
                     <button
@@ -258,24 +212,26 @@ const Pricing = () => {
           </section>
 
           {/* Guarantee Footer */}
-          <section className="max-w-2xl mx-auto text-center">
-            <div className="flex items-center justify-center gap-8 text-xs text-muted-foreground flex-wrap">
+          <section className="max-w-2xl mx-auto text-center px-4">
+            <div className="flex items-center justify-center gap-4 sm:gap-8 text-xs text-muted-foreground flex-wrap">
               <div className="flex items-center gap-1.5">
-                <Lock className="w-4 h-4 text-primary" />
-                <span>Cashfree Encrypted Payments</span>
+                <Lock className="w-3.5 h-3.5 text-primary" />
+                <span>Cashfree Encrypted</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Globe className="w-4 h-4 text-primary" />
-                <span>Syncs with Android & iOS App</span>
+                <Globe className="w-3.5 h-3.5 text-primary" />
+                <span>Syncs with Android & iOS</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Shield className="w-4 h-4 text-primary" />
+                <Shield className="w-3.5 h-3.5 text-primary" />
                 <span>Cancel Anytime</span>
               </div>
             </div>
           </section>
         </div>
-      </div>
+      </main>
+
+      <Footer />
     </motion.div>
   );
 };

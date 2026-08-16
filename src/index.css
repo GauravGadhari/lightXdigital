@@ -155,12 +155,27 @@ Pure contrast, no greys, no gradients. Premium typography and smooth animations.
   .container-custom {
     max-width: var(--container-max);
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1rem;
+  }
+  @media (min-width: 640px) {
+    .container-custom {
+      padding: 0 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container-custom {
+      padding: 0 2rem;
+    }
   }
 
   /* Section Padding */
   .section-padding {
-    padding: var(--section-padding) 0;
+    padding: 3rem 0;
+  }
+  @media (min-width: 768px) {
+    .section-padding {
+      padding: var(--section-padding) 0;
+    }
   }
 
   /* Smooth Transitions */
