@@ -20,13 +20,33 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
+const detectAutoCurrency = (): "INR" | "USD" => {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+    const lang = navigator.language || "";
+    if (
+      tz.includes("Calcutta") ||
+      tz.includes("Kolkata") ||
+      lang.includes("IN") ||
+      lang.includes("hi") ||
+      lang.includes("mr") ||
+      lang.includes("ta") ||
+      lang.includes("te")
+    ) {
+      return "INR";
+    }
+    return "USD";
+  } catch {
+    return "INR";
+  }
+};
+
 const Pricing = () => {
   usePageTransitions();
   useLenis();
   const { user, signInWithGoogle, createPaymentOrder, subscriptions } = useAuth();
 
-  const [currency, setCurrency] = useState<"INR" | "USD">("INR");
-  const [selectedPlan, setSelectedPlan] = useState<"monthly" | "yearly" | "lifetime">("yearly");
+  const [currency] = useState<"INR" | "USD">(detectAutoCurrency());
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const is21DaysPro = subscriptions.some((sub) => sub.app_slug === "21days" && sub.is_active);
@@ -48,14 +68,15 @@ const Pricing = () => {
     }
 
     setIsCheckingOut(true);
-    toast.loading("Creating checkout link...", { id: "pricing-checkout" });
+    toast.loading("Creating checkout session...", { id: "pricing-checkout" });
 
     try {
-      const result = await createPaymentOrder(appSlug, planKey);
+      const tier = currency === "INR" ? 2 : 1;
+      const result = await createPaymentOrder(appSlug, planKey, tier);
       toast.dismiss("pricing-checkout");
 
       if (result.payment_link) {
-        toast.success("Redirecting to Cashfree...");
+        toast.success("Redirecting to secure checkout...");
         window.location.href = result.payment_link;
       } else {
         toast.error(result.error || "Failed to create order");
@@ -141,26 +162,6 @@ const Pricing = () => {
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
               Unlock Pro features across all your devices. Zero hidden charges, 100% money-back guarantee, and uninterrupted productivity.
             </p>
-
-            {/* Currency Selector */}
-            <div className="inline-flex items-center gap-2 p-1.5 rounded-full bg-card border border-border">
-              <button
-                onClick={() => setCurrency("INR")}
-                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-colors ${
-                  currency === "INR" ? "bg-primary text-primary-foreground shadow" : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                🇮🇳 INR (₹)
-              </button>
-              <button
-                onClick={() => setCurrency("USD")}
-                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-colors ${
-                  currency === "USD" ? "bg-primary text-primary-foreground shadow" : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                🌍 USD ($)
-              </button>
-            </div>
           </section>
 
           {/* 21 Days of Habit Pricing Highlight */}

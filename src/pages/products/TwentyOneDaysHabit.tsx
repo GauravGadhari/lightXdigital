@@ -85,13 +85,34 @@ const iconMap: Record<string, React.ElementType> = {
   Compass,
 };
 
+const detectAutoCurrency = (): "INR" | "USD" => {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+    const lang = navigator.language || "";
+    if (
+      tz.includes("Calcutta") ||
+      tz.includes("Kolkata") ||
+      lang.includes("IN") ||
+      lang.includes("hi") ||
+      lang.includes("mr") ||
+      lang.includes("ta") ||
+      lang.includes("te")
+    ) {
+      return "INR";
+    }
+    return "USD";
+  } catch {
+    return "INR";
+  }
+};
+
 const TwentyOneDaysHabit = () => {
   usePageTransitions();
   useLenis();
   const navigate = useNavigate();
   const { user, signInWithGoogle, createPaymentOrder, subscriptions } = useAuth();
 
-  const [currency, setCurrency] = useState<"INR" | "USD">("INR");
+  const [currency] = useState<"INR" | "USD">(detectAutoCurrency());
   const [selectedPlan, setSelectedPlan] = useState<"monthly" | "yearly" | "lifetime">("yearly");
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 
@@ -118,7 +139,8 @@ const TwentyOneDaysHabit = () => {
     toast.loading("Creating secure checkout session...", { id: "checkout" });
 
     try {
-      const result = await createPaymentOrder("21days", selectedPlan);
+      const tier = currency === "INR" ? 2 : 1;
+      const result = await createPaymentOrder("21days", selectedPlan, tier);
       toast.dismiss("checkout");
 
       if (result.payment_link) {
@@ -375,26 +397,6 @@ const TwentyOneDaysHabit = () => {
               <p className="text-muted-foreground max-w-xl mx-auto mb-8">
                 One subscription syncs seamlessly across your mobile devices and web browser. 0 Ads forever.
               </p>
-
-              {/* Currency Selector */}
-              <div className="inline-flex items-center gap-2 p-1.5 rounded-full bg-card border border-border">
-                <button
-                  onClick={() => setCurrency("INR")}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-colors ${
-                    currency === "INR" ? "bg-primary text-primary-foreground shadow" : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  🇮🇳 INR (₹)
-                </button>
-                <button
-                  onClick={() => setCurrency("USD")}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-colors ${
-                    currency === "USD" ? "bg-primary text-primary-foreground shadow" : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  🌍 USD ($)
-                </button>
-              </div>
             </motion.div>
 
             {/* Plan Cards Grid */}

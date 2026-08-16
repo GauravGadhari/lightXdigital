@@ -20,7 +20,7 @@ interface AuthContextType {
   signOut: () => Promise<void>;
   subscriptions: SubscriptionInfo[];
   refreshSubscriptions: () => Promise<void>;
-  createPaymentOrder: (appSlug: string, planKey: string) => Promise<{ payment_link?: string; order_id?: string; error?: string }>;
+  createPaymentOrder: (appSlug: string, planKey: string, tier?: number) => Promise<{ payment_link?: string; order_id?: string; error?: string; pending_kyc?: boolean }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -103,14 +103,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setSubscriptions([]);
   };
 
-  const createPaymentOrder = async (appSlug: string, planKey: string) => {
+  const createPaymentOrder = async (appSlug: string, planKey: string, tier: number = 2) => {
     try {
       if (!session) {
         return { error: "Please sign in with Google first." };
       }
 
       const response = await supabase.functions.invoke("create-order", {
-        body: { app_slug: appSlug, plan_key: planKey },
+        body: { app_slug: appSlug, plan_key: planKey, tier },
         headers: {
           Authorization: `Bearer ${session.accessToken}`,
         },
@@ -126,7 +126,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { payment_link: data.payment_link, order_id: data.order_id };
       }
 
-      return { error: data?.error || "Payment link was not generated" };
+      return {
+        error: data?.error || "Payment link was not generated",
+        pending_kyc: data?.pending_kyc,
+      };
     } catch (err: any) {
       console.error("createPaymentOrder error:", err);
       return { error: err.message || "Unexpected payment creation error" };
