@@ -14,6 +14,7 @@ import TwentyOneDaysHabit from "./pages/products/TwentyOneDaysHabit";
 import Pricing from "./pages/Pricing";
 import Account from "./pages/Account";
 import PaymentStatus from "./pages/PaymentStatus";
+import Checkout from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const AnimatedRoutes = () => {
         <Route path="/products/21-days-of-habit" element={<TwentyOneDaysHabit />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/subscription" element={<Pricing />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/account" element={<Account />} />
         <Route path="/payment-status" element={<PaymentStatus />} />
         <Route path="/subscription/success" element={<PaymentStatus />} />
