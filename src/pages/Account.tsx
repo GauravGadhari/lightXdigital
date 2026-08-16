@@ -26,7 +26,7 @@ const Account = () => {
   usePageTransitions();
   useLenis();
   const navigate = useNavigate();
-  const { user, loading, signOut, signInWithGoogle, subscriptions } = useAuth();
+  const { user, loading, signOut, signInWithGoogle, subscriptions, cancelSubscription } = useAuth();
 
   const handleSignOut = async () => {
     try {
@@ -150,11 +150,45 @@ const Account = () => {
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
+                        <div className="flex items-center gap-2.5 w-full sm:w-auto justify-between sm:justify-start flex-wrap">
                           <Badge variant="outline" className="border-primary/40 text-primary text-[10px] sm:text-xs py-1">
                             <ShieldCheck className="w-3 h-3 mr-1" />
                             Synced to Mobile
                           </Badge>
+
+                          {sub.plan_key !== "lifetime" && sub.status === "active" && (
+                            <button
+                              onClick={async () => {
+                                if (
+                                  window.confirm(
+                                    `Are you sure you want to cancel your ${sub.app_name} subscription? You will retain Pro access until ${
+                                      sub.current_period_end
+                                        ? new Date(sub.current_period_end).toLocaleDateString()
+                                        : "the end of your period"
+                                    }, and you will not be charged again.`
+                                  )
+                                ) {
+                                  toast.loading("Cancelling subscription...", { id: "cancel-sub" });
+                                  const res = await cancelSubscription(sub.app_slug);
+                                  toast.dismiss("cancel-sub");
+                                  if (res.success) {
+                                    toast.success(res.message || "Subscription cancelled.");
+                                  } else {
+                                    toast.error(res.error || "Failed to cancel subscription.");
+                                  }
+                                }
+                              }}
+                              className="px-3 py-1 rounded-lg border border-destructive/30 text-destructive text-[11px] font-semibold hover:bg-destructive/10 transition-colors"
+                            >
+                              Cancel Auto-Renew
+                            </button>
+                          )}
+
+                          {sub.status === "cancelled" && (
+                            <Badge variant="outline" className="border-yellow-500/40 text-yellow-400 text-[10px]">
+                              Cancelled (No further charges)
+                            </Badge>
+                          )}
                         </div>
                       </div>
                     ))}

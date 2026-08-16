@@ -22,6 +22,7 @@ interface AuthContextType {
   subscriptions: SubscriptionInfo[];
   refreshSubscriptions: () => Promise<void>;
   createPaymentOrder: (appSlug: string, planKey: string, tier?: number) => Promise<{ payment_link?: string; order_id?: string; error?: string; pending_kyc?: boolean }>;
+  cancelSubscription: (appSlug: string) => Promise<{ success: boolean; message?: string; error?: string }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -153,6 +154,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const cancelSubscription = async (appSlug: string) => {
+    try {
+      if (!user) return { success: false, error: "Not authenticated" };
+
+      const { data, error } = await supabase.rpc("cancel_subscription", {
+        p_app_slug: appSlug,
+      });
+
+      if (error) {
+        return { success: false, error: error.message };
+      }
+
+      await fetchSubscriptions();
+      return {
+        success: data?.success ?? true,
+        message: data?.message || "Subscription cancelled.",
+        error: data?.error,
+      };
+    } catch (err: any) {
+      return { success: false, error: err.message || "Failed to cancel subscription" };
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -164,6 +188,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         subscriptions,
         refreshSubscriptions: fetchSubscriptions,
         createPaymentOrder,
+        cancelSubscription,
       }}
     >
       {children}
