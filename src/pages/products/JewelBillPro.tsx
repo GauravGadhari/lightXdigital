@@ -127,7 +127,7 @@ const JewelBillPro = () => {
                                 <div>
                                     <div className="flex flex-wrap gap-2 mb-4">
                                         <Badge className="bg-primary/20 text-primary border-primary/30">
-                                            Complete Solution @ ₹20,000
+                                            Complete Solution @ ₹19,999
                                         </Badge>
                                         <Badge variant="outline">
                                             {product.category}

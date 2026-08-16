@@ -54,6 +54,16 @@ export interface ProductDetails extends Product {
 // Products List for Products Page
 export const products: Product[] = [
   {
+    id: "21-days-of-habit",
+    name: "21 Days of Habit",
+    tagline: "Build Habits That Actually Stick",
+    shortDescription: "A minimalist, Apple-inspired habit tracker with streak protection, 0 ads, offline-first sync, and habit journeys.",
+    category: "Productivity App",
+    image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&auto=format&fit=crop&q=80",
+    featured: true,
+    route: "/products/21-days-of-habit"
+  },
+  {
     id: "jewel-bill-pro",
     name: "Jewel Bill Pro",
     tagline: "Professional Jewellery Billing, Simplified",
@@ -263,6 +273,153 @@ export const jewelBillProDetails: ProductDetails = {
   ]
 };
 
+// 21 Days of Habit Complete Details
+export const twentyOneDaysHabitDetails: ProductDetails = {
+  id: "21-days-of-habit",
+  name: "21 Days of Habit",
+  tagline: "Build Habits That Actually Stick",
+  shortDescription: "A minimalist, aesthetic habit tracker with streak protection, 0 ads, offline-first sync, and habit journeys.",
+  heroTitle: "Transform Your Routines.\nMaster Your Life.",
+  heroSubtitle: "Build unbreakable habits in 21-day cycles. Featuring smart streak freezes, distraction-free Cupertino UI, seamless cloud sync, and zero ad interruptions.",
+  longDescription: "21 Days of Habit is an ultra-fast, offline-first habit tracker engineered around psychological momentum. Whether you are aiming to read daily, drink more water, meditate, or exercise — track your consistency with intuitive one-tap check-ins, intelligent streak recovery shields, and beautiful visual progress charts.",
+  category: "Productivity App",
+  image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&auto=format&fit=crop&q=80",
+  featured: true,
+  route: "/products/21-days-of-habit",
+
+  pricing: {
+    firstYear: {
+      price: 399,
+      label: "Yearly Pro (Best Value)",
+      includes: [
+        "0 Advertisements Guaranteed",
+        "Unlimited Habits & Daily Check-ins",
+        "Streak Freeze Protection Tokens",
+        "Multi-Device Cloud Backup & Sync",
+        "Detailed Analytics & Completion Heatmaps",
+        "Access to All 21-Day Guided Journeys"
+      ]
+    },
+    maintenance: {
+      price: "₹79/month or ₹1,999 Lifetime",
+      label: "Flexible Options",
+      includes: [
+        "Monthly Pro: ₹79 / $1.99",
+        "Yearly Pro: ₹399 / $9.99 (Save 58%)",
+        "Lifetime Access: ₹1,999 / $19.99 (Pay Once)"
+      ]
+    }
+  },
+
+  valueProps: [
+    {
+      icon: "Shield",
+      title: "100% Offline-First",
+      subtitle: "Instant 0ms latency. Your data always stays with you, syncing silently when online."
+    },
+    {
+      icon: "Flame",
+      title: "Streak Freeze Protection",
+      subtitle: "Life happens. Missed days don't erase your momentum with streak recovery tokens."
+    },
+    {
+      icon: "Sparkles",
+      title: "Zero Distractions",
+      subtitle: "No clutter, no social feed, 0 ad interruptions. Pure focus on your daily growth."
+    }
+  ],
+
+  features: [
+    {
+      icon: "Flame",
+      title: "Psychological 21-Day Cycles",
+      description: "Science-backed habit formation loops designed to turn effort into effortless routine."
+    },
+    {
+      icon: "Shield",
+      title: "Streak Freeze System",
+      description: "Shield your streaks against unexpected sick days or travel without losing your streak count."
+    },
+    {
+      icon: "Cloud",
+      title: "Cross-Device Cloud Sync",
+      description: "Sign in with Google on any device to backup and synchronize your habits in real-time."
+    },
+    {
+      icon: "Bell",
+      title: "Smart Context Reminders",
+      description: "Timely morning briefings, evening recaps, and streak-at-risk alerts so you never miss a beat."
+    },
+    {
+      icon: "TrendingUp",
+      title: "In-Depth Insights & Heatmaps",
+      description: "Visualize completion rates, best streaks, weekly trends, and habit consistency scores."
+    },
+    {
+      icon: "Compass",
+      title: "Curated Habit Journeys",
+      description: "Pre-built templates for morning routines, deep work, mindfulness, fitness, and financial discipline."
+    }
+  ],
+
+  whatsIncluded: [
+    "Ad-Free Pro on Mobile App & Web",
+    "Unlimited Habits Tracking",
+    "Streak Freeze Tokens",
+    "Instant Google Cloud Sync",
+    "Interactive Habit Journeys",
+    "Smart Multi-Time Reminders",
+    "Detailed Analytics & Heatmaps",
+    "Cross-Device Sync Across Mobile & Tablet",
+    "Lifetime Updates"
+  ],
+
+  screenshots: [
+    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&auto=format&fit=crop&q=80"
+  ],
+
+  faqs: [
+    {
+      question: "If I subscribe on the website, does it work in the mobile app?",
+      answer: "Yes! Simply sign in with the same Google account on your mobile app, and your Pro subscription and habits will be instantly active."
+    },
+    {
+      question: "What payment methods are supported?",
+      answer: "We support UPI (Google Pay, PhonePe, Paytm), Credit/Debit Cards, NetBanking, and Wallets via secure Cashfree payment gateway."
+    },
+    {
+      question: "Will I lose my existing habits when updating?",
+      answer: "Never. The app uses an offline-first architecture. All your local habits and the last 90 days of completions automatically sync to your cloud account upon signing in."
+    },
+    {
+      question: "Can I use the app completely offline?",
+      answer: "Yes. All features and check-ins work completely offline. Data syncs automatically whenever you reconnect to the internet."
+    },
+    {
+      question: "Can I cancel my subscription anytime?",
+      answer: "Yes. Subscriptions can be managed or canceled anytime directly from your LightX account portal."
+    }
+  ],
+
+  techStack: [
+    "Flutter",
+    "Supabase Auth & Database",
+    "Cashfree Payments",
+    "PostHog Analytics",
+    "Local Notifications",
+    "Edge Functions"
+  ],
+
+  targetAudience: [
+    "Students & Self-Learners",
+    "Professionals & Entrepreneurs",
+    "Fitness & Health Enthusiasts",
+    "Anyone looking to break bad habits and build positive routines"
+  ]
+};
+
 export const getProductById = (id: string): Product | undefined => {
   return products.find(product => product.id === id);
 };
@@ -270,3 +427,4 @@ export const getProductById = (id: string): Product | undefined => {
 export const getFeaturedProducts = (): Product[] => {
   return products.filter(product => product.featured);
 };
+
