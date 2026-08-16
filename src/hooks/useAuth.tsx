@@ -112,7 +112,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const response = await supabase.functions.invoke("create-order", {
         body: { app_slug: appSlug, plan_key: planKey, tier },
         headers: {
-          Authorization: `Bearer ${session.accessToken}`,
+          Authorization: `Bearer ${session.access_token}`,
         },
       });
 
