@@ -7,12 +7,11 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import {
   CheckCircle2,
-  XCircle,
   Loader2,
-  Crown,
   Smartphone,
   ArrowRight,
   ShieldCheck,
+  ExternalLink,
 } from "lucide-react";
 
 const PaymentStatus = () => {
@@ -21,12 +20,20 @@ const PaymentStatus = () => {
   const [searchParams] = useSearchParams();
   const { user, refreshSubscriptions, subscriptions } = useAuth();
   const [isVerifying, setIsVerifying] = useState(true);
+  const [countdown, setCountdown] = useState(3);
 
   const orderId = searchParams.get("order_id");
 
+  const openApp = () => {
+    // Attempt custom scheme deep link to return to mobile app
+    window.location.href = "daysofhabit://payment-success?status=success";
+    setTimeout(() => {
+      window.location.href = "io.supabase.21days://payment-success?status=success";
+    }, 500);
+  };
+
   useEffect(() => {
     const checkStatus = async () => {
-      // Small pause to let webhook record payment
       await new Promise((res) => setTimeout(res, 2000));
       if (user) {
         await refreshSubscriptions();
@@ -38,6 +45,27 @@ const PaymentStatus = () => {
   }, [user]);
 
   const hasActiveSub = subscriptions.some((s) => s.is_active);
+
+  // Auto-launch countdown when payment is verified
+  useEffect(() => {
+    if (!isVerifying && hasActiveSub) {
+      // Trigger instant deep link on mount
+      openApp();
+
+      const timer = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            openApp();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [isVerifying, hasActiveSub]);
 
   return (
     <motion.div
@@ -67,55 +95,58 @@ const PaymentStatus = () => {
               Your subscription is now active. All premium features and 0 advertisements have been enabled for your account.
             </p>
 
-            <div className="p-4 rounded-2xl bg-muted/40 border border-border/80 mb-6 text-left space-y-2">
-              <div className="flex items-center gap-2 text-xs font-semibold text-foreground">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Instant Mobile Activation</span>
+            {/* Direct App Return Button */}
+            <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 mb-6 text-center space-y-3">
+              <div className="flex items-center justify-center gap-2 text-xs font-semibold text-primary">
+                <Smartphone className="w-4 h-4" />
+                <span>
+                  {countdown > 0
+                    ? `Returning to App in ${countdown}s...`
+                    : "App Launch Triggered!"}
+                </span>
               </div>
-              <p className="text-xs text-muted-foreground">
-                Open your <strong>21 Days of Habit</strong> app and sign in with <strong>{user?.email}</strong>. Pro will activate automatically!
-              </p>
+              <button
+                onClick={openApp}
+                className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-md shadow-primary/20"
+              >
+                <Smartphone className="w-4 h-4" />
+                Open 21 Days of Habit App
+              </button>
             </div>
 
             <div className="space-y-3">
               <Link
                 to="/account"
-                className="w-full py-3.5 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
-              >
-                Go to My Account <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/products/21-days-of-habit"
                 className="w-full py-3 rounded-2xl border border-border text-sm font-medium hover:bg-muted/30 transition-colors block text-center"
               >
-                Back to Product Page
+                Manage Subscription on Web
               </Link>
             </div>
           </div>
         ) : (
           <div className="py-6">
-            <div className="w-16 h-16 rounded-full bg-yellow-500/20 text-yellow-400 flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-6">
               <CheckCircle2 className="w-10 h-10" />
             </div>
-            <h2 className="text-xl font-bold mb-2">Order Processed</h2>
+            <h2 className="text-xl font-bold mb-2">Order Completed!</h2>
             <p className="text-sm text-muted-foreground mb-6">
-              If your payment was completed, your subscription will activate shortly. You can check your account status anytime.
+              Your payment has been received by Cashfree. Tap below to return to the app and unlock Pro!
             </p>
 
-            <div className="space-y-3">
-              <Link
-                to="/account"
-                className="w-full py-3.5 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity block text-center"
-              >
-                Check My Account
-              </Link>
-              <Link
-                to="/pricing"
-                className="w-full py-3 rounded-2xl border border-border text-sm font-medium hover:bg-muted/30 transition-colors block text-center"
-              >
-                Return to Pricing
-              </Link>
-            </div>
+            <button
+              onClick={openApp}
+              className="w-full py-3.5 rounded-2xl bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2 mb-3 shadow-lg shadow-primary/25"
+            >
+              <Smartphone className="w-4 h-4" />
+              Return to 21 Days of Habit App
+            </button>
+
+            <Link
+              to="/account"
+              className="w-full py-3 rounded-2xl border border-border text-sm font-medium hover:bg-muted/30 transition-colors block text-center"
+            >
+              Check My Account
+            </Link>
           </div>
         )}
       </div>
