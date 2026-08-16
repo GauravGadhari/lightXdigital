@@ -75,9 +75,8 @@ const Pricing = () => {
       const result = await createPaymentOrder(appSlug, planKey, tier);
       toast.dismiss("pricing-checkout");
 
-      if (result.payment_link) {
-        toast.success("Redirecting to secure checkout...");
-        window.location.href = result.payment_link;
+      if (result.order_id) {
+        toast.success("Launching secure checkout...");
       } else {
         toast.error(result.error || "Failed to create order");
         setIsCheckingOut(false);

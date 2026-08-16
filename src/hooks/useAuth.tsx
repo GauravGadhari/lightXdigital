@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { User, Session } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
+import { load } from "@cashfreepayments/cashfree-js";
 
 export interface SubscriptionInfo {
   app_id: string;
@@ -131,12 +132,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       const data = response.data;
-      if (data && data.payment_link) {
-        return { payment_link: data.payment_link, order_id: data.order_id };
+      if (data && data.payment_session_id) {
+        const cashfree = await load({
+          mode: data.is_production ? "production" : "sandbox",
+        });
+        await cashfree.checkout({
+          paymentSessionId: data.payment_session_id,
+          redirectTarget: "_self",
+        });
+        return { order_id: data.order_id, payment_session_id: data.payment_session_id };
       }
 
       return {
-        error: data?.error || "Payment link was not generated",
+        error: data?.error || "Payment session was not created",
         pending_kyc: data?.pending_kyc,
       };
     } catch (err: any) {

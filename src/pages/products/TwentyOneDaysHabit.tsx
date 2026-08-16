@@ -143,11 +143,10 @@ const TwentyOneDaysHabit = () => {
       const result = await createPaymentOrder("21days", selectedPlan, tier);
       toast.dismiss("checkout");
 
-      if (result.payment_link) {
-        toast.success("Redirecting to Cashfree checkout...");
-        window.location.href = result.payment_link;
+      if (result.order_id) {
+        toast.success("Launching checkout...");
       } else {
-        toast.error(result.error || "Failed to create payment link. Please try again.");
+        toast.error(result.error || "Failed to create payment session.");
         setIsCheckingOut(false);
       }
     } catch (err: any) {
