@@ -117,8 +117,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
 
       if (response.error) {
-        console.error("Edge function error:", response.error);
-        return { error: response.error.message || "Failed to create order" };
+        let errorMsg = response.error.message;
+        try {
+          if ((response.error as any).context) {
+            const body = await (response.error as any).context.json();
+            if (body && body.error) {
+              errorMsg = body.error;
+            }
+          }
+        } catch (_) {}
+        console.error("Edge function error:", errorMsg);
+        return { error: errorMsg };
       }
 
       const data = response.data;
